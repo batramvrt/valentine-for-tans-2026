@@ -582,7 +582,7 @@
     .book-page p, .flip-face p {
       margin-bottom: 0.65em;
       line-height: 1.6;
-      font-size: clamp(11.5px, 1.8vw, 14.5px);
+      font-size: clamp(14px, 2.2vw, 15px);
     }
     .book-page h2, .flip-face h2 { margin-bottom: clamp(10px, 2vw, 18px); }
   }
@@ -783,7 +783,9 @@
         const noW = btnNo.offsetWidth;
         const initX = rect.left + rect.width / 2 - noW / 2;
         const initY = rect.bottom + 14;
-        btnNo.style.transform = `translate(${initX}px, ${initY}px) scale(1)`;
+        btnNo.style.left = initX + 'px';
+        btnNo.style.top = initY + 'px';
+        btnNo.style.transform = 'scale(1)';
       });
     });
   }
@@ -814,7 +816,9 @@
       yesScale = Math.min(1.8, yesScale + 0.08);
       noScale = Math.max(0.82, noScale - 0.015);
       btnYes.style.transform = 'scale(' + yesScale + ')';
-      btnNo.style.transform = `translate(${newX}px, ${newY}px) scale(${noScale})`;
+      btnNo.style.left = newX + 'px';
+      btnNo.style.top = newY + 'px';
+      btnNo.style.transform = `scale(${noScale})`;
 
       // Show random taunt message (with cooldown)
       const now = Date.now();
@@ -852,6 +856,19 @@
   document.addEventListener('touchstart', (e) => {
     if (!questionActive) return;
     dodgeNo(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: true });
+
+  document.addEventListener('touchmove', (e) => {
+    if (!questionActive || !e.touches[0]) return;
+    lastPointerPos.x = e.touches[0].clientX;
+    lastPointerPos.y = e.touches[0].clientY;
+    if (!rafPending) {
+      rafPending = true;
+      requestAnimationFrame(() => {
+        dodgeNo(lastPointerPos.x, lastPointerPos.y);
+        rafPending = false;
+      });
+    }
   }, { passive: true });
 
   btnYes.addEventListener('click', () => {
