@@ -1,0 +1,9 @@
+# Backups
+*.backup.html
+valentine-backup-*.html
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
