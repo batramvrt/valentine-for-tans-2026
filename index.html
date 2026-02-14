@@ -54,6 +54,19 @@
                 radial-gradient(ellipse at 70% 80%, rgba(255,180,210,0.3) 0%, transparent 60%);
     pointer-events: none; z-index: 0;
   }
+  /* Subtle vignette for depth */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 0%,
+      transparent 40%,
+      rgba(180, 60, 100, 0.05) 100%
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
 
   /* ─── Particles ─── */
   .particle {
@@ -309,14 +322,18 @@
   .flip-page::after {
     content: ''; position: absolute; right: 0; top: 0;
     width: 0; height: 100%;
-    background: linear-gradient(to left, rgba(120,40,70,0.1) 0%, transparent 100%);
+    background: linear-gradient(to left,
+      rgba(120, 40, 70, 0.25) 0%,
+      rgba(120, 40, 70, 0.12) 40%,
+      transparent 100%);
     opacity: 0; z-index: 10; pointer-events: none; border-radius: 0 12px 12px 0;
   }
   .flip-page.flipping::after { animation: foldShadow 0.5s cubic-bezier(0.22, 0.61, 0.36, 1); }
   @keyframes foldShadow {
     0% { opacity: 0; width: 0; }
-    30% { opacity: 1; width: 45px; }
-    60% { opacity: 0.5; width: 25px; }
+    25% { opacity: 0.8; width: 60px; }
+    50% { opacity: 1; width: 50px; }
+    75% { opacity: 0.6; width: 30px; }
     100% { opacity: 0; width: 0; }
   }
 
