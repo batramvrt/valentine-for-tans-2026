@@ -576,11 +576,13 @@
 
   /* ─── Mobile ─── */
   @media (max-width: 600px) {
-    .open-book { width: 96vw; height: min(440px, 52vh); }
+    .open-book { width: 96vw; height: min(500px, 58vh); }
     .final-card { width: min(300px, 78vw); }
+    .book-page, .flip-face { padding: clamp(18px, 2.5vw, 32px) clamp(14px, 2vw, 24px); }
+    .book-page p, .flip-face p { margin-bottom: 0.7em; }
   }
   @media (max-height: 700px) {
-    .open-book { height: min(400px, 50vh); }
+    .open-book { height: min(440px, 54vh); }
     .final-card { max-height: 48vh; }
   }
 </style>
