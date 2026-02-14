@@ -205,6 +205,17 @@
     margin-top: 8px;
     position: relative; z-index: 1;
   }
+  .cover-hint {
+    font-family: 'Lora', serif; font-style: italic;
+    font-size: 11px; color: var(--text-primary);
+    opacity: 0; margin-top: 16px;
+    position: relative; z-index: 1;
+    animation: hintPulse 2.5s ease-in-out infinite;
+  }
+  @keyframes hintPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.5; }
+  }
 
   /* ─── Open Book ─── */
   .book-container {
@@ -481,9 +492,12 @@
     object-fit: cover;
     object-position: center;
     opacity: 0;
-    transition: opacity 0.6s ease;
+    transition: opacity 0.8s ease;
   }
   .photo-image.loaded {
+    opacity: 1;
+  }
+  .photo-image.reveal {
     opacity: 1;
   }
   .photo-slot .photo-icon { font-size: 32px; }
@@ -644,6 +658,7 @@
     <div class="cover-card" id="cover-card">
       <h2>I hope you&rsquo;re smiling already</h2>
       <span class="cover-sub">something from my heart &rarr;</span>
+      <span class="cover-hint">tap to open</span>
     </div>
   </div>
 
@@ -702,7 +717,7 @@
   const isMobile = window.innerWidth < 768;
   const particleHearts = ['\u2665', '\u2661', '\u2764', '\u2766'];
 
-  // Photo loading with fade-in
+  // Photo loading state (but don't reveal yet)
   const photoImg = document.querySelector('.photo-image');
   if (photoImg) {
     if (photoImg.complete) {
@@ -797,6 +812,14 @@
     setTimeout(() => {
       showPhase('phase-final');
       initQuestion();
+
+      // Delayed photo reveal for dramatic effect
+      setTimeout(() => {
+        const photo = document.querySelector('.photo-image');
+        if (photo) {
+          photo.classList.add('reveal');
+        }
+      }, 300);
     }, 300);
   });
 
