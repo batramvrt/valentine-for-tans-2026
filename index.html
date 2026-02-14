@@ -532,6 +532,7 @@
     z-index: 2;
     box-shadow: 0 2px 10px rgba(0,0,0,0.06);
     will-change: transform;
+    transform-origin: top left;
   }
   .no-taunt {
     position: fixed;
@@ -800,9 +801,7 @@
         const noW = btnNo.offsetWidth;
         const initX = rect.left + rect.width / 2 - noW / 2;
         const initY = rect.bottom + 14;
-        btnNo.style.left = initX + 'px';
-        btnNo.style.top = initY + 'px';
-        btnNo.style.transform = 'scale(1)';
+        btnNo.style.transform = `translate3d(${initX}px, ${initY}px, 0) scale(1)`;
       });
     });
   }
@@ -833,9 +832,7 @@
       yesScale = Math.min(1.8, yesScale + 0.08);
       noScale = Math.max(0.82, noScale - 0.015);
       btnYes.style.transform = 'scale(' + yesScale + ')';
-      btnNo.style.left = newX + 'px';
-      btnNo.style.top = newY + 'px';
-      btnNo.style.transform = `scale(${noScale})`;
+      btnNo.style.transform = `translate3d(${newX}px, ${newY}px, 0) scale(${noScale})`;
 
       // Show random taunt message (with cooldown)
       const now = Date.now();
