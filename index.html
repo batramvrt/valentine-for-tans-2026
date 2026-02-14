@@ -551,6 +551,7 @@
     font-family: 'Lora', serif; font-style: italic;
     font-size: clamp(15px, 3vw, 20px); color: var(--text-secondary);
     margin-top: 12px; opacity: 0; transition: opacity 0.8s ease 0.4s;
+    text-align: center;
   }
   .celebration-sub.visible { opacity: 1; }
   @keyframes celebrationBoom {
@@ -575,11 +576,11 @@
 
   /* ─── Mobile ─── */
   @media (max-width: 600px) {
-    .open-book { width: 96vw; height: min(380px, 48vh); }
+    .open-book { width: 96vw; height: min(440px, 52vh); }
     .final-card { width: min(300px, 78vw); }
   }
   @media (max-height: 700px) {
-    .open-book { height: min(340px, 46vh); }
+    .open-book { height: min(400px, 50vh); }
     .final-card { max-height: 48vh; }
   }
 </style>
