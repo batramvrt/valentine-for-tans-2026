@@ -142,9 +142,12 @@
     background-clip: padding-box;
     border-radius: 16px;
     box-shadow:
-      0 20px 60px rgba(255, 105, 135, 0.22),
+      0 30px 80px rgba(255, 105, 135, 0.25),
+      0 20px 60px rgba(255, 105, 135, 0.18),
       0 8px 24px rgba(255, 140, 170, 0.12),
+      0 2px 8px rgba(255, 160, 180, 0.08),
       inset 0 2px 0 rgba(255,255,255,0.95),
+      inset 0 -1px 0 rgba(255,220,230,0.5),
       0 0 0 1px rgba(229,152,155,0.12);
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     text-align: center; gap: 8px; cursor: pointer;
@@ -212,8 +215,11 @@
     width: min(700px, 92vw); height: min(470px, 55vh);
     border-radius: 14px;
     box-shadow:
-      0 16px 64px rgba(255, 105, 135, 0.24),
+      0 24px 80px rgba(255, 105, 135, 0.28),
+      0 16px 64px rgba(255, 105, 135, 0.20),
       0 6px 20px rgba(255, 140, 170, 0.14),
+      0 2px 8px rgba(255, 160, 180, 0.10),
+      inset 0 1px 0 rgba(255,255,255,0.6),
       0 0 0 1px rgba(229,152,155,0.2);
   }
   /* Book spine with rose gold accent */
@@ -398,9 +404,12 @@
     background-clip: padding-box;
     border-radius: 16px;
     box-shadow:
-      0 20px 60px rgba(255, 105, 135, 0.22),
+      0 30px 80px rgba(255, 105, 135, 0.25),
+      0 20px 60px rgba(255, 105, 135, 0.18),
       0 8px 24px rgba(255, 140, 170, 0.12),
+      0 2px 8px rgba(255, 160, 180, 0.08),
       inset 0 2px 0 rgba(255,255,255,0.95),
+      inset 0 -1px 0 rgba(255,220,230,0.5),
       0 0 0 1px rgba(229,152,155,0.12);
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     padding: clamp(20px, 3vw, 32px); text-align: center; gap: 12px;
@@ -471,6 +480,11 @@
     width: 100%; height: 100%;
     object-fit: cover;
     object-position: center;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  .photo-image.loaded {
+    opacity: 1;
   }
   .photo-slot .photo-icon { font-size: 32px; }
   .photo-caption {
@@ -513,11 +527,15 @@
   @keyframes glowPulse {
     0%, 100% {
       box-shadow: 0 4px 20px rgba(255, 59, 122, 0.35),
-                  0 0 0 0 rgba(255, 59, 122, 0);
+                  0 2px 12px rgba(255, 59, 122, 0.25),
+                  0 0 0 0 rgba(255, 59, 122, 0),
+                  0 0 0 0 rgba(255, 105, 135, 0);
     }
     50% {
-      box-shadow: 0 0 30px 8px rgba(255, 59, 122, 0.4),
-                  0 0 0 4px rgba(255, 59, 122, 0.15);
+      box-shadow: 0 8px 36px rgba(255, 59, 122, 0.45),
+                  0 4px 20px rgba(255, 59, 122, 0.35),
+                  0 0 0 8px rgba(255, 59, 122, 0.2),
+                  0 0 0 16px rgba(255, 105, 135, 0.1);
     }
   }
 
@@ -683,6 +701,16 @@
 (function() {
   const isMobile = window.innerWidth < 768;
   const particleHearts = ['\u2665', '\u2661', '\u2764', '\u2766'];
+
+  // Photo loading with fade-in
+  const photoImg = document.querySelector('.photo-image');
+  if (photoImg) {
+    if (photoImg.complete) {
+      photoImg.classList.add('loaded');
+    } else {
+      photoImg.addEventListener('load', () => photoImg.classList.add('loaded'));
+    }
+  }
 
   function spawnParticle() {
     const p = document.createElement('div');
